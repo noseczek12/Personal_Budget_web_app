@@ -53,6 +53,26 @@ body
 	color: #0a2b42;
 }
 
+#spis
+{
+	width: 780px;
+	padding-left:100px;
+}
+
+ol
+{
+	margin-top: 5px;
+}
+
+ol > li
+{
+	font-size: 22px;
+	text-transform: uppercase;
+	font-weight: 700;
+	padding: 5px;
+	letter-spacing: 3px;
+}
+
 .info
 {
 	margin-left: auto;
