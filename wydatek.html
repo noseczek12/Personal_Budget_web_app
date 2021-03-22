@@ -27,9 +27,9 @@
 				</div>
 				<nav id="topnav">
 					<ul class="menu">
-							<li><a href="#">Rejestracja</a></li>
-							<li><a href="#">Logowanie</a></li>
-							<li><a href="#">O autorze</a></li>
+							<li><a href="#">Menu główne</a></li>
+							<li><a href="#">Ustawienia</a></li>
+							<li><a href="#">Wyloguj</a></li>
 					</ul>
 				
 				</nav>
@@ -38,14 +38,61 @@
 		</header>
 		
 		<main>
-				<div id="spis">
-				<h2> Menu główne </h2>
-						<ol>
-								<li> Dodaj przychód </li>
-								<li> Dodaj wydatek </li>
-								<li> Pokaż bilans </li>
-						</ol>
-				</div>
+		
+				<form action="" method="post">
+					<h2 id="title"> Dodaj wydatek </h2>
+					<div class="row">
+					
+							<label> Kwota:   </label>
+					
+					</div>
+					
+					<div class="row">
+							<label> Data:   </label>
+					</div>
+					
+					<div class="row">
+					
+							<label for="płatność"> Sposób płatności:  </label>
+							<select id="płatność" name="płatność">
+							
+									<option value="gotówka">Gotówka</option>
+									<option value="debet">Karta Debetowa</option>
+									<option value="kredyt">Karta Kredytowa</option>
+									
+							</select>
+					
+					</div>
+					
+					<div class="row">
+					
+							<label for="kategoria"> Kategoria: </label>
+							<select id="kategoria" name="kategoria">
+							
+									<option value="jedzenie">Jedzenie</option>
+									<option value="mieszkanie">Mieszkanie</option>
+									<option value="transport">Transport</option>
+									<option value="telekomunikacja">Telekomunikacja</option>
+									<option value="zdrowie">Opieka Zdrowotna</option>
+									<option value="ubranie">Ubranie</option>
+									<option value="higiena">Higiena</option>
+									<option value="dzieci">Dzieci</option>
+									<option value="rozrywka">Rozrywka</option>
+									<option value="wycieczka">Wycieczka</option>
+									<option value="szkolenia">Szkolenia</option>
+									<option value="książki">Książki</option>
+									<option value="oszczędności">Oszczędności</option>
+									<option value="emerytura">Na złotą jesień, czyli emeryturę</option>
+									<option value="długi">Spłata długów</option>
+									<option value="darowizna">Darowizna</option>
+									<option value="inne">Inne Wydatki</option>
+									
+							</select>
+					
+					</div>
+			
+			
+			</form>
 		
 		</main>
 		<footer>
