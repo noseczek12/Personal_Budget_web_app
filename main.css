@@ -53,19 +53,24 @@ body
 	color: #0a2b42;
 }
 
-#spis
+.spis
 {
-	width: 780px;
-	padding-left:100px;
+	width: 700px;
+	text-align: center;
+	list-style-position: inside;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 ol
 {
 	margin-top: 5px;
+	
 }
 
 ol > li
 {
+	text-align: left;
 	font-size: 22px;
 	text-transform: uppercase;
 	font-weight: 700;
