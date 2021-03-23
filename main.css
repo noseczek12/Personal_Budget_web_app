@@ -1,7 +1,7 @@
 body
 {
 	margin: 0;
-	background-color: #2F3336;
+	background-color: #228B22;
 	color: #efefef;
     font-family: 'Open Sans', sans-serif;
     font-size: 17px;
@@ -15,7 +15,7 @@ body
 
 #topnav
 {
-	background-color: #1c74b2;
+	background-color: #4169E1;
 	text-align: center;
 }
 
@@ -55,7 +55,7 @@ body
 
 .spis
 {
-	width: 700px;
+	width: 80%;
 	text-align: center;
 	list-style-position: inside;
 	margin-left: auto;
@@ -80,10 +80,14 @@ ol > li
 
 .info
 {
+	bottom: 0;
+	position: absolute;
+	height: 2.5 rem;
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
 	padding: 20px;
+	width: 100%;
 }
 
 .row

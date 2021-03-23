@@ -39,16 +39,18 @@
 		
 		<main>
 		
-				<form action="" method="post">
+			<form action="wydatek.php" method="post">
 					<h2 id="title"> Dodaj wydatek </h2>
 					<div class="row">
 					
-							<label> Kwota:   </label>
+							<label> Kwota: <input type="number" name="kwota" step="0.01"></label>
 					
 					</div>
 					
 					<div class="row">
-							<label> Data:   </label>
+					
+							<label> Data:  <input type="text" name="data" placeholder="RRRR-MM-DD"></label>
+							
 					</div>
 					
 					<div class="row">
@@ -89,6 +91,19 @@
 									
 							</select>
 					
+					</div>
+					
+					<div class="row">
+					
+							<label> Komentarz (opcjonalnie) :  <input type="text" name="komentarz" ></label>
+							
+					</div>
+					
+					<div class="row">
+					
+							<input type="submit" value="Dodaj wydatek">
+							<input type="button" value="Anuluj">
+							
 					</div>
 			
 			
