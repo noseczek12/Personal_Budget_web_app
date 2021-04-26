@@ -26,55 +26,69 @@
 				<img src="img/tlo.png" alt="tło" class="rounded mx-auto d-block img-fluid">
 				<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #204ac8;">
 				<div class="container-fluid">	
-					<a class="navbar-brand" href="#">Mój Budżet</a>
-						
-					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar" aria-controls="collapsibleNavbar" aria-expanded="false" aria-label="Toggle navigation">
-							<span class="navbar-toggler-icon"></span>
-					</button>	
-						
-					<div class="collapse navbar-collapse" id="collapsibleNavbar">	
-						<ul class="navbar-nav me-auto">
-							<li class="nav-item">
-									<a class="nav-link" aria-current="page" href="#">Menu Główne</a>
-							</li>
-							<li class="nav-item">
-									<a class="nav-link" aria-current="page" href="#">Rejestracja</a>
-							</li>
-							<li class="nav-item">
-									<a class="nav-link" aria-current="page" href="#">Zaloguj się</a>
-							</li>
-						</ul>
-					</div>
+						<a class="navbar-brand" href="#">Mój Budżet</a>
+							
+						<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar" aria-controls="collapsibleNavbar" aria-expanded="false" aria-label="Toggle navigation">
+								<span class="navbar-toggler-icon"></span>
+						</button>	
+							
+						<div class="collapse navbar-collapse" id="collapsibleNavbar">	
+							<ul class="navbar-nav me-auto">
+								<li class="nav-item">
+										<a class="nav-link" aria-current="page" href="#">Menu Główne</a>
+								</li>
+								<li class="nav-item">
+										<a class="nav-link" aria-current="page" href="#">Ustawienia</a>
+								</li>
+								<li class="nav-item">
+										<a class="nav-link" aria-current="page" href="#">Wyloguj się</a>
+								</li>
+							</ul>
+						</div>
 				</div>
 				</nav>	
 		</header>
 		
 		<main>
 		
-		<div class="row justify-content-center">
+			<div class="row justify-content-center">
 			<div class="col-xs-12 col-sm-7 col-lg-5 login-form-2">
-                    <h3>Rejestracja</h3>
+                    <h3>Dodaj Przychód</h3>
                     <form action="rejestracja.php" method="post">
                         <div class="form-group row">
-									<label for="inputName" class="col-sm-4  col-form-label">Imię: </label>
+									<label for="inputAmount" class="col-sm-6  col-form-label">Kwota: </label>
 									<div class="col-sm-6">
-										<input type="text" class="form-control" id="inputName">
+										<input type="number" class="form-control" id="inputAmount" step="0.01">
 									</div>
-									<label for="inputEmail" class="col-sm-4  col-form-label">E-mail: </label>	
+									
+									<label for="inputDate" class="col-sm-6  col-form-label">Data przychodu: </label>
 									<div class="col-sm-6">
-										<input type="password" class="form-control" id="inputEmail">
+										<input type="date" class="form-control" id="inputDate">
 									</div>
-									<label for="inputPassword" class="col-sm-4  col-form-label">Hasło: </label>
+									
+									<label for="categorySelect" class="col-sm-6 col-form-label">Kategoria:</label>
+									<select class="col-sm-6" id="categorySelect">
+											<option selected>Wybierz...</option>
+											<option value="wynagrodzenie">Jedzenie</option>
+											<option value="odsetki bankowe">Mieszkanie</option>
+											<option value="inne">Inne Wydatki</option>
+									</select>
+									
+									<label for="inputComment" class="col-sm-6 col-md-6  col-form-label">Komentarz (opcjonalnie): </label>
 									<div class="col-sm-6">
-										<input type="password" class="form-control" id="inputPassword">
+										<input class="form-control " id="inputComment" type="text">
+									</div>
+								
+									<div class="col-sm-12 form-group">
+									<input type="submit" class="btnSubmit" value="Dodaj przychód" />
 									</div>
 									<div class="col-sm-12 form-group">
-									<input type="submit" class="btnSubmit" value="Zarejestruj się" />
+									<input type="submit" class="btnAbort" value="Anuluj" />
 									</div>
 						</div>
                     </form>
             </div>	
-		</div>
+			</div>
 		
 		</main>
 		<footer>
