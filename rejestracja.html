@@ -51,33 +51,40 @@
 		
 		<main>
 		
-		<form action="rejestracja.php" method="post">
-					<h2 id="title"> Rejestracja </h2>
-					
-					<div class="row">
-							<labeL> Imię: <input type="text" name="imie"></input></label>
-					</div>
-					
-					<div class="row">
-							<labeL> Adres e-mail: <input type="email" name="email"></input></label>
-					</div>
-					
-					<div class="row">
-							<labeL> Hasło: <input type="password" name="haslo"></input></label>
-					</div>
-					
-					<div class="row">
-							<input type="submit" value="Załóż konto">
-					</div>
-			
-			</form>
+		<div class="row justify-content-center">
+			<div class="col-xs-12 col-sm-7 col-lg-5 login-form-2">
+                    <h3>Rejestracja</h3>
+                    <form action="rejestracja.php" method="post">
+                        <div class="form-group row">
+									<label for="inputName" class="col-sm-4  col-form-label">Imię: </label>
+									<div class="col-sm-6">
+										<input type="text" class="form-control" id="inputName">
+									</div>
+									<label for="inputEmail" class="col-sm-4  col-form-label">E-mail: </label>	
+									<div class="col-sm-6">
+										<input type="password" class="form-control" id="inputEmail">
+									</div>
+									<label for="inputPassword" class="col-sm-4  col-form-label">Hasło: </label>
+									<div class="col-sm-6">
+										<input type="password" class="form-control" id="inputPassword">
+									</div>
+									<div class="col-sm-12 form-group">
+									<input type="submit" class="btnSubmit" value="Zarejestruj się" />
+									</div>
+						</div>
+                    </form>
+            </div>	
+		</div>
 		
 		</main>
 		<footer>
-				
+			<div class="row">
+			<div class="col-sm-12">	
 				<div class="info">
 					Wszelkie prawa zastrzeżone &copy; 2021 Dziękuję za wizytę !
 				</div>
+			</div>	
+			</div>
 		</footer>
 		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
