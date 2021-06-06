@@ -135,6 +135,10 @@
 	<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
 	<![endif]-->
 	
+	<style>
+		.error{color:red; margin-top: 10px; margin-bottom: 10px;}
+	</style>
+	
 </head>
 
 <body>
@@ -178,20 +182,52 @@
 										<input type="text" class="form-control" id="inputNick" name="nick">
 									</div>
 									
+									<?php
+										if(isset($_SESSION['e_nick']))
+										{
+											echo '<div class="error">'.$_SESSION['e_nick'].'</div>';
+											unset($_SESSION['e_nick']);
+										}
+									?>
+									
 									<label for="inputEmail" class="col-sm-4  col-form-label">E-mail: </label>	
 									<div class="col-sm-6">
 										<input type="email" class="form-control" id="inputEmail" name="email">
 									</div>
+									
+									<?php
+										if(isset($_SESSION['e_email']))
+										{
+											echo '<div class="error">'.$_SESSION['e_email'].'</div>';
+											unset($_SESSION['e_email']);
+										}
+									?>
 									
 									<label for="inputPassword" class="col-sm-4  col-form-label">Hasło: </label>
 									<div class="col-sm-6">
 										<input type="password" class="form-control" id="inputPassword" name="haslo1">
 									</div>
 									
+									<?php
+										if(isset($_SESSION['e_haslo']))
+										{
+											echo '<div class="error">'.$_SESSION['e_haslo'].'</div>';
+											unset($_SESSION['e_haslo']);
+										}
+									?>
+									
 									<label for="repeatPassword" class="col-sm-4  col-form-label">Powtórz hasło: </label>
 									<div class="col-sm-6">
 										<input type="password" class="form-control" id="repeatPassword" name="haslo2">
 									</div>
+									
+									<?php
+										if(isset($_SESSION['e_regulamin']))
+										{
+											echo '<div class="error">'.$_SESSION['e_regulamin'].'</div>';
+											unset($_SESSION['e_regulamin']);
+										}
+									?>
 									
 									<div class="col-sm-12 form-group">
 									<input type="submit" class="btnSubmit" value="Zarejestruj się" />
