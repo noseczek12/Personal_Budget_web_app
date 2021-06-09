@@ -93,7 +93,7 @@
 					if($polaczenie->query("INSERT INTO users VALUES(NULL,'$nick','$haslo_hash','$email')"))
 					{
 						$_SESSION['udanarejestracja']=true;
-						header('Location: zaloguj.html');
+						header('Location: witamy.php');
 					}
 					else
 					{
