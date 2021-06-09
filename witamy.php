@@ -23,9 +23,9 @@
 
 <body>
 		<header>
-				<img src="img/tlo.png" alt="tło" class="rounded mx-auto d-block img-fluid">
-				<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #204ac8;">
-				<div class="container-fluid">	
+			<img src="img/tlo.png" alt="tło" class="rounded mx-auto d-block img-fluid">
+			<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #204ac8;">
+			<div class="container-fluid">	
 					<a class="navbar-brand" href="#">Mój Budżet</a>
 						
 					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar" aria-controls="collapsibleNavbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,43 +38,20 @@
 									<a class="nav-link" aria-current="page" href="#">Menu Główne</a>
 							</li>
 							<li class="nav-item">
-									<a class="nav-link" aria-current="page" href="#">Rejestracja</a>
+									<a class="nav-link" aria-current="page" href="#">Ustawienia</a>
 							</li>
 							<li class="nav-item">
-									<a class="nav-link" aria-current="page" href="#">Zaloguj się</a>
+									<a class="nav-link" aria-current="page" href="#">Wyloguj</a>
 							</li>
 						</ul>
 					</div>
-				</div>
-				</nav>	
+			</div>
+			</nav>		
 		</header>
 		
 		<main>
-		
-		<div class="row justify-content-center">
-			<div class="col-xs-12 col-sm-7 col-lg-5 login-form-2">
-                    <h3>Rejestracja</h3>
-                    <form action="rejestracja.php" method="post">
-                        <div class="form-group row">
-									<label for="inputName" class="col-sm-4  col-form-label">Imię: </label>
-									<div class="col-sm-6">
-										<input type="text" class="form-control" id="inputName">
-									</div>
-									<label for="inputEmail" class="col-sm-4  col-form-label">E-mail: </label>	
-									<div class="col-sm-6">
-										<input type="password" class="form-control" id="inputEmail">
-									</div>
-									<label for="inputPassword" class="col-sm-4  col-form-label">Hasło: </label>
-									<div class="col-sm-6">
-										<input type="password" class="form-control" id="inputPassword">
-									</div>
-									<div class="col-sm-12 form-group">
-									<input type="submit" class="btnSubmit" value="Zarejestruj się" />
-									</div>
-						</div>
-                    </form>
-            </div>	
-		</div>
+			</br></br>
+			<p align = "center"> Rejestracja przebiegła pomyślnie. <a href="logowanie.html" style="color:blue">Zaloguj się</a>, aby zacząć zarządzać swoim budżetem osobistym. </p>
 		
 		</main>
 		<footer>
