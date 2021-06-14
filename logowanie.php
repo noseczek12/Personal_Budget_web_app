@@ -1,3 +1,15 @@
+<?php
+
+	session_start();
+	
+	if(isset($_SESSION['zalogowany']) && ($_SESSION['zalogowany']==true))
+	{
+		header('Location: menu_glowne.html');
+		exit();
+	}
+	
+?>
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -54,7 +66,7 @@
 		<div class="row justify-content-center">
 			<div class=" col-xs-12 col-sm-7 col-lg-5 login-form-2">
                     <h3>Logowanie</h3>
-                    <form action="logowanie.php" method="post">
+                    <form action="zaloguj.php" method="post">
                      <div class="form-group row">  
 						<div class="col-sm-6"> 
                             <input type="email" class="form-control" placeholder="Twój E-mail" value="" />
@@ -85,5 +97,14 @@
 		</footer>
 		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
+		
+		<?php
+
+		if(isset($_SESSION['blad']))
+		{
+			echo $_SESSION['blad'];
+		}
+		
+		?>
 </body>
 </html>
