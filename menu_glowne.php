@@ -2,8 +2,15 @@
 
 	session_start();
 	
-	if(!isset($_SESSION['zalogowany']))
-	{
+	if(isset($_POST['email'])){
+			
+			$login= filter_input(INPUT_POST, 'email');
+			$haslo= filter_input(INPUT_POST, 'password');
+			
+			echo $login . " " .$password;
+	}
+	else{
+		
 		header('Location: logowanie.php');
 		exit();
 	}
