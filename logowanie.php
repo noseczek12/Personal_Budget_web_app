@@ -4,7 +4,7 @@
 	
 	if(isset($_SESSION['zalogowany']) && ($_SESSION['zalogowany']==true))
 	{
-		header('Location: menu_glowne.html');
+		header('Location: menu_glowne.php');
 		exit();
 	}
 	
@@ -69,10 +69,10 @@
                     <form action="zaloguj.php" method="post">
                      <div class="form-group row">  
 						<div class="col-sm-6"> 
-                            <input type="email" class="form-control" placeholder="Twój E-mail" value="" />
+                            <input type="email" class="form-control" placeholder="Twój E-mail" name="email"/>
                         </div>
                         <div class="col-sm-6">
-                            <input type="password" class="form-control" placeholder="Twoje hasło" value="" />
+                            <input type="password" class="form-control" placeholder="Twoje hasło" name="haslo" />
                         </div>
                         <div class="col-sm-12">
                             <input type="submit" class="btnSubmit" value="Zaloguj się" />
@@ -106,5 +106,6 @@
 		}
 		
 		?>
+		
 </body>
 </html>
