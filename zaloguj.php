@@ -32,7 +32,7 @@
 						$_SESSION['id'] = $wiersz['id'];
 						$_SESSION['nick'] = $wiersz['username'];
 						$_SESSION['haslo'] =$wiersz['password'];
-					//	$_SESSION['email'] =$wiersz['email'];
+						$_SESSION['email'] =$wiersz['email'];
 						
 						
 						unset($_SESSION['blad']);

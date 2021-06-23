@@ -53,7 +53,7 @@
 									<a class="nav-link" aria-current="page" href="#">Ustawienia</a>
 							</li>
 							<li class="nav-item">
-									<a class="nav-link" aria-current="page" href="#">Wyloguj</a>
+									<a class="nav-link" aria-current="page" href="wyloguj.php">Wyloguj</a>
 							</li>
 						</ul>
 					</div>
