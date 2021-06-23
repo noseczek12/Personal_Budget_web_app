@@ -2,14 +2,7 @@
 
 	session_start();
 	
-	if(isset($_POST['email'])){
-			
-			$login= filter_input(INPUT_POST, 'email');
-			$haslo= filter_input(INPUT_POST, 'password');
-			
-			echo $login . " " .$password;
-	}
-	else{
+	if(!isset($_SESSION['zalogowany'])){
 		
 		header('Location: logowanie.php');
 		exit();

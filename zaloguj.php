@@ -16,45 +16,35 @@
 		$email = htmlentities($email,ENT_QUOTES,"UTF-8");
 		$haslo = htmlentities($haslo,ENT_QUOTES,"UTF-8");
 		
-		$query = $db->prepare(sprintf("SELECT * FROM users WHERE email='email' AND password='haslo'"));
+		$sql = 'SELECT id,username, password,email FROM users WHERE email = :email';
 		
-		if ($rezultat = $query->execute())
-		{
-			$ilu_userow = $rezultat->num_rows;
-			if($ilu_userow>0)
-			{
-				$wiersz = $rezultat->fetch_assoc();
+		$query = $db->prepare($sql);
+		$query->bindValue(':email', $email, PDO::PARAM_STR);
+		$query->execute();
+		
+		$wiersz = $query->fetch();
+		//var_dump($wiersz);
+		//exit();
 				
-				if(password_verify($haslo, $wiersz['password']))
-				{
+		if($wiersz && password_verify($haslo, $wiersz['password']))
+		{
 						$_SESSION['zalogowany'] = true;
-						
-						
 						$_SESSION['id'] = $wiersz['id'];
-						$_SESSION['nick'] = $wiersz['nick'];
-						$_SESSION['email'] = $wiersz['email'];
-						$_SESSION['haslo'] =$wiersz['haslo'];
+						$_SESSION['nick'] = $wiersz['username'];
+						$_SESSION['haslo'] =$wiersz['password'];
+					//	$_SESSION['email'] =$wiersz['email'];
+						
 						
 						unset($_SESSION['blad']);
-						$rezultat->free();
 						
 						header('Location: menu_glowne.php');
-				}
-				
-				else
-						{
-							$_SESSION['blad'] = '<span style="color:red">Nieprawidłowy login lub hasło!</span>';
-							header('Location: logowanie.php');
-						}
-			}
-			else
-			{
-				$_SESSION['blad'] = '<span style="color:red">Nieprawidłowy login lub hasło!</span>';
-				header('Location: logowanie.php');
-			}
 		}
-		
-		$polaczenie->close();
+				
+		else
+		{
+						$_SESSION['blad'] = '<span style="color:red">Nieprawidłowy login lub hasło!</span>';
+						header('Location: logowanie.php');
+		}
 
 ?>
 
