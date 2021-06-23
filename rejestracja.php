@@ -51,59 +51,46 @@
 		
 		$haslo_hash = password_hash($haslo1, PASSWORD_DEFAULT);
 		
-		require_once "connect.php";
-		mysqli_report(MYSQLI_REPORT_STRICT);
 		
-		try
+		mysqli_report(MYSQLI_REPORT_STRICT);
+		try{
+			
+		require_once "database.php";
+		
+		$result = $db->prepare("SELECT id FROM users WHERE email='$email'");
+		$ile_takich_maili = $rezultat->num_rows;
+		
+		if($ile_takich_maili>0)
 		{
-			$polaczenie = new mysqli($host, $db_user, $db_password, $db_name);
-			if ($polaczenie->connect_errno!=0)
-			{
-				throw new Exception(mysqli_connect_errno());
-			}
-			else
-			{
-				// czy email już istnieje ?
-				$rezultat = $polaczenie->query("SELECT id FROM users WHERE email='$email'");
-				
-				if(!$rezultat) throw new Exception($polaczenie->error);
-				
-				$ile_takich_maili = $rezultat->num_rows;
-				if($ile_takich_maili>0)
-				{
-						$wszystko_OK=false;
-						$_SESSION['e_email']="Istnieje już konto przypisane do adresu e-mail!";
-				}
-				
-				// czy nick już istnieje, czy jest zarezerwowany ?
-				$rezultat = $polaczenie->query("SELECT id FROM users WHERE username='$nick'");
-				
-				if(!$rezultat) throw new Exception($polaczenie->error);
-				
-				$ile_takich_nickow = $rezultat->num_rows;
-				if($ile_takich_nickow>0)
-				{
-						$wszystko_OK=false;
-						$_SESSION['e_nick']="Istnieje już użytkownik o takim nicku! Wybierz inny!";
-				}
-				
-				if($wszystko_OK==true)
-				{
-					//Hura, wszystkie testy zaliczone, dodajemy gracza do bazy
-					if($polaczenie->query("INSERT INTO users VALUES(NULL,'$nick','$haslo_hash','$email')"))
-					{
-						$_SESSION['udanarejestracja']=true;
-						header('Location: witamy.php');
-					}
-					else
-					{
-						throw new Exception($polaczenie->error);
-					}
-				}
-				
-				$polaczenie->close();
-			}
+			$wszystko_OK=false;
+			$_SESSION['e_email']="Istnieje już konto przypisane do adresu e-mail!";
 		}
+		
+		$result = $db->prepare("SELECT id FROM users WHERE username='$nick'");
+				
+		$ile_takich_nickow = $rezultat->num_rows;
+		if($ile_takich_nickow>0)
+		{
+			$wszystko_OK=false;
+			$_SESSION['e_nick']="Istnieje już użytkownik o takim nicku! Wybierz inny!";
+		}
+		
+		if($wszystko_OK==true)
+		{
+			//Hura, wszystkie testy zaliczone, dodajemy gracza do bazy
+			$query = $db->prepare("INSERT INTO users VALUES(NULL,:username,:password,:email)");
+			$query->bindValue(':username', $nick, PDO::PARAM_STR);
+			$query->bindValue(':password', $haslo_hash, PDO::PARAM_STR);
+			$query->bindValue(':email', $email, PDO::PARAM_STR);
+			$query->execute();
+			
+			$_SESSION['udanarejestracja']=true;
+			header('Location: witamy.php');
+					
+		}
+		
+		}
+		
 		catch(Exception $e)
 		{
 			echo '<span style="color:red;">Błąd serwera! Przepraszamy za niedogodności i prosimy o rejestrację w innym terminie !</span>';
