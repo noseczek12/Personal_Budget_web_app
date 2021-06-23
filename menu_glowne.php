@@ -2,7 +2,7 @@
 
 	session_start();
 	
-	if(!isset($_SESSION['zalogowany'])){
+	if(!isset($_SESSION['zalogowany'])&& ($_SESSION['zalogowany']==true)){
 		
 		header('Location: logowanie.php');
 		exit();
@@ -47,7 +47,7 @@
 					<div class="collapse navbar-collapse" id="collapsibleNavbar">	
 						<ul class="navbar-nav me-auto">
 							<li class="nav-item">
-									<a class="nav-link" aria-current="page" href="#">Menu Główne</a>
+									<a class="nav-link" aria-current="page" href="menu_glowne.php">Menu Główne</a>
 							</li>
 							<li class="nav-item">
 									<a class="nav-link" aria-current="page" href="#">Ustawienia</a>

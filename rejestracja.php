@@ -142,13 +142,10 @@
 					<div class="collapse navbar-collapse" id="collapsibleNavbar">	
 						<ul class="navbar-nav me-auto">
 							<li class="nav-item">
-									<a class="nav-link" aria-current="page" href="#">Menu Główne</a>
+									<a class="nav-link" aria-current="page" href="rejestracja.php">Rejestracja</a>
 							</li>
 							<li class="nav-item">
-									<a class="nav-link" aria-current="page" href="#">Rejestracja</a>
-							</li>
-							<li class="nav-item">
-									<a class="nav-link" aria-current="page" href="#">Zaloguj się</a>
+									<a class="nav-link" aria-current="page" href="logowanie.php">Zaloguj się</a>
 							</li>
 						</ul>
 					</div>
@@ -164,8 +161,8 @@
                     <h3>Rejestracja</h3>
                     <form action="rejestracja.php" method="post">
                         <div class="form-group row">
-									<label for="inputNick" class="col-sm-4  col-form-label">Nick: </label>
-									<div class="col-sm-6">
+									<label for="inputNick" class="col-sm-3  col-form-label">Nick: </label>
+									<div class="col-sm-8">
 										<input type="text" class="form-control" id="inputNick" name="nick">
 									</div>
 									
@@ -177,8 +174,8 @@
 										}
 									?>
 									
-									<label for="inputEmail" class="col-sm-4  col-form-label">E-mail: </label>	
-									<div class="col-sm-6">
+									<label for="inputEmail" class="col-sm-3  col-form-label">E-mail: </label>	
+									<div class="col-sm-8">
 										<input type="email" class="form-control" id="inputEmail" name="email">
 									</div>
 									
@@ -190,8 +187,8 @@
 										}
 									?>
 									
-									<label for="inputPassword" class="col-sm-4  col-form-label">Hasło: </label>
-									<div class="col-sm-6">
+									<label for="inputPassword" class="col-sm-3  col-form-label">Hasło: </label>
+									<div class="col-sm-8">
 										<input type="password" class="form-control" id="inputPassword" name="haslo1">
 									</div>
 									
@@ -203,8 +200,8 @@
 										}
 									?>
 									
-									<label for="repeatPassword" class="col-sm-4  col-form-label">Powtórz hasło: </label>
-									<div class="col-sm-6">
+									<label for="repeatPassword" class="col-sm-3  col-form-label">Powtórz hasło: </label>
+									<div class="col-sm-8">
 										<input type="password" class="form-control" id="repeatPassword" name="haslo2">
 									</div>
 									

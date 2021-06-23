@@ -47,13 +47,10 @@
 					<div class="collapse navbar-collapse" id="collapsibleNavbar">	
 						<ul class="navbar-nav me-auto">
 							<li class="nav-item">
-									<a class="nav-link" aria-current="page" href="#">Menu Główne</a>
+									<a class="nav-link" aria-current="page" href="rejestracja.php">Rejestracja</a>
 							</li>
 							<li class="nav-item">
-									<a class="nav-link" aria-current="page" href="#">Rejestracja</a>
-							</li>
-							<li class="nav-item">
-									<a class="nav-link" aria-current="page" href="#">Zaloguj się</a>
+									<a class="nav-link" aria-current="page" href="logowanie.php">Zaloguj się</a>
 							</li>
 						</ul>
 					</div>
@@ -68,10 +65,10 @@
                     <h3>Logowanie</h3>
                     <form action="zaloguj.php" method="post">
                      <div class="form-group row">  
-						<div class="col-sm-6"> 
+						<div class="col-sm-6-center"> 
                             <input type="email" class="form-control" placeholder="Twój E-mail" name="email"/>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-6-center">
                             <input type="password" class="form-control" placeholder="Twoje hasło" name="haslo" />
                         </div>
                         <div class="col-sm-12">

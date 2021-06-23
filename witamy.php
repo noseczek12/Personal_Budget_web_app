@@ -48,19 +48,6 @@
 							<span class="navbar-toggler-icon"></span>
 					</button>	
 						
-					<div class="collapse navbar-collapse" id="collapsibleNavbar">	
-						<ul class="navbar-nav me-auto">
-							<li class="nav-item">
-									<a class="nav-link" aria-current="page" href="#">Menu Główne</a>
-							</li>
-							<li class="nav-item">
-									<a class="nav-link" aria-current="page" href="#">Ustawienia</a>
-							</li>
-							<li class="nav-item">
-									<a class="nav-link" aria-current="page" href="#">Wyloguj</a>
-							</li>
-						</ul>
-					</div>
 			</div>
 			</nav>		
 		</header>
