@@ -1,3 +1,33 @@
+<?php
+	$category =  ( isset($_POST['incomeCategory']) == TRUE ) ? $_POST['incomeCategory'] :  '';
+	$amount =  ( isset($_POST['amount']) == TRUE ) ? $_POST['amount'] :  '';
+	$date =  ( isset($_POST['incomeDate']) == TRUE ) ? $_POST['incomeDate'] :  '';
+	$comment =  ( isset($_POST['incomeComment']) == TRUE ) ? $_POST['incomeComment'] :  '';
+	
+	$date = strtotime($_POST['incomeDate']);
+	$convertedDate = date('Y-m-d', $date);
+	echo $category.'</br>';
+	echo $amount.'</br>';
+	echo $convertedDate.'</br>';
+	echo $comment.'</br>';
+	/*session_start();  
+	require_once "database.php";
+	
+	//$category = $_POST['incomeCategory'];
+	//$amount = $_POST['amount'];
+	//$date_of_income = $_POST['incomeDate'];
+	//$comment = $_POST['incomeComment'];
+	$sql='INSERT INTO incomes VALUES(NULL,:category,:amount,:date_of_income,:comment)';
+	$query = $db->prepare($sql);
+	$query->bindValue(':category', $incomeCategory, PDO::PARAM_STR);
+	$query->bindValue(':amount', $amount, PDO::PARAM_INT);
+	$query->bindValue(':date_of_income', $incomeDate, PDO::PARAM_STR);
+	$query->bindValue(':comment', $incomeComment, PDO::PARAM_STR);
+	$query->execute();*/
+	
+	
+?>
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -54,29 +84,29 @@
 			<div class="row justify-content-center">
 			<div class="col-xs-12 col-sm-7 col-lg-5 login-form-2">
                     <h3>Dodaj Przychód</h3>
-                    <form action="rejestracja.php" method="post">
+                    <form action="przychod.php" method="post">
                         <div class="form-group row">
 									<label for="inputAmount" class="col-sm-6  col-form-label">Kwota: </label>
 									<div class="col-sm-6">
-										<input type="number" class="form-control" id="inputAmount" step="0.01">
+										<input type="number" class="form-control" id="inputAmount" name="amount" step="0.01">
 									</div>
 									
 									<label for="inputDate" class="col-sm-6  col-form-label">Data przychodu: </label>
 									<div class="col-sm-6">
-										<input type="date" class="form-control" id="inputDate">
+										<input type="date" class="form-control" id="inputDate" name="incomeDate">
 									</div>
 									
 									<label for="categorySelect" class="col-sm-6 col-form-label">Kategoria:</label>
-									<select class="col-sm-6" id="categorySelect">
+									<select class="col-sm-6" id="categorySelect" name="incomeCategory">
 											<option selected>Wybierz...</option>
-											<option value="wynagrodzenie">Jedzenie</option>
-											<option value="odsetki bankowe">Mieszkanie</option>
+											<option value="wynagrodzenie">wynagrodzenie</option>
+											<option value="odsetki bankowe">odsetki bankowe</option>
 											<option value="inne">Inne Wydatki</option>
 									</select>
 									
 									<label for="inputComment" class="col-sm-6 col-md-6  col-form-label">Komentarz (opcjonalnie): </label>
 									<div class="col-sm-6">
-										<input class="form-control " id="inputComment" type="text">
+										<input class="form-control " id="inputComment" type="text" name="incomeComment">
 									</div>
 								
 									<div class="col-sm-12 form-group">
