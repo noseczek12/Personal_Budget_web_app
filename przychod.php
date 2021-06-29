@@ -1,4 +1,6 @@
 <?php
+	session_start();  
+	
 	$category =  ( isset($_POST['incomeCategory']) == TRUE ) ? $_POST['incomeCategory'] :  '';
 	$amount =  ( isset($_POST['amount']) == TRUE ) ? $_POST['amount'] :  '';
 	$date =  ( isset($_POST['incomeDate']) == TRUE ) ? $_POST['incomeDate'] :  '';
@@ -10,20 +12,16 @@
 	echo $amount.'</br>';
 	echo $convertedDate.'</br>';
 	echo $comment.'</br>';
-	/*session_start();  
+	
 	require_once "database.php";
 	
-	//$category = $_POST['incomeCategory'];
-	//$amount = $_POST['amount'];
-	//$date_of_income = $_POST['incomeDate'];
-	//$comment = $_POST['incomeComment'];
-	$sql='INSERT INTO incomes VALUES(NULL,:category,:amount,:date_of_income,:comment)';
+	$sql='INSERT INTO incomes VALUES(NULL,:category,:amount,:date,:comment)';
 	$query = $db->prepare($sql);
-	$query->bindValue(':category', $incomeCategory, PDO::PARAM_STR);
+	$query->bindValue(':category', $category, PDO::PARAM_STR);
 	$query->bindValue(':amount', $amount, PDO::PARAM_INT);
-	$query->bindValue(':date_of_income', $incomeDate, PDO::PARAM_STR);
-	$query->bindValue(':comment', $incomeComment, PDO::PARAM_STR);
-	$query->execute();*/
+	$query->bindValue(':date', $convertedDate, PDO::PARAM_STR);
+	$query->bindValue(':comment', $comment, PDO::PARAM_STR);
+	$query->execute();
 	
 	
 ?>
@@ -99,8 +97,8 @@
 									<label for="categorySelect" class="col-sm-6 col-form-label">Kategoria:</label>
 									<select class="col-sm-6" id="categorySelect" name="incomeCategory">
 											<option selected>Wybierz...</option>
-											<option value="wynagrodzenie">wynagrodzenie</option>
-											<option value="odsetki bankowe">odsetki bankowe</option>
+											<option value="wynagrodzenie">Wynagrodzenie</option>
+											<option value="odsetki bankowe">Odsetki bankowe</option>
 											<option value="inne">Inne Wydatki</option>
 									</select>
 									
