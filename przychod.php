@@ -12,11 +12,13 @@
 	echo $amount.'</br>';
 	echo $convertedDate.'</br>';
 	echo $comment.'</br>';
+	echo $_SESSION['id'];
 	
 	require_once "database.php";
 	
-	$sql='INSERT INTO incomes VALUES(NULL,:category,:amount,:date,:comment)';
+	$sql='INSERT INTO incomes VALUES(NULL,:userId,:category,:amount,:date,:comment)';
 	$query = $db->prepare($sql);
+	$query->bindValue(':userId', $_SESSION['id'], PDO::PARAM_STR);
 	$query->bindValue(':category', $category, PDO::PARAM_STR);
 	$query->bindValue(':amount', $amount, PDO::PARAM_INT);
 	$query->bindValue(':date', $convertedDate, PDO::PARAM_STR);

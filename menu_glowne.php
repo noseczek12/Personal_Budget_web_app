@@ -67,6 +67,7 @@
 		<?php
 
 		echo "<p>Witaj ".$_SESSION['nick'].'! </p>';
+		echo "<p>Numer id: ".$_SESSION['id'].'! </p>';
 		echo "<p><b>E-mail</b>: ".$_SESSION['email'];
 	
 		?>	
