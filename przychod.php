@@ -5,15 +5,19 @@
 	$amount =  ( isset($_POST['amount']) == TRUE ) ? $_POST['amount'] :  '';
 	$date =  ( isset($_POST['incomeDate']) == TRUE ) ? $_POST['incomeDate'] :  '';
 	$comment =  ( isset($_POST['incomeComment']) == TRUE ) ? $_POST['incomeComment'] :  '';
-	
 	$date = strtotime($_POST['incomeDate']);
 	$convertedDate = date('Y-m-d', $date);
-	echo $category.'</br>';
+	
+	/*echo $category.'</br>';
 	echo $amount.'</br>';
 	echo $convertedDate.'</br>';
 	echo $comment.'</br>';
-	echo $_SESSION['id'];
+	echo $_SESSION['id'];*/
 	
+	$udanyWpis=false;
+	
+	try{
+		
 	require_once "database.php";
 	
 	$sql='INSERT INTO incomes VALUES(NULL,:userId,:category,:amount,:date,:comment)';
@@ -24,6 +28,14 @@
 	$query->bindValue(':date', $convertedDate, PDO::PARAM_STR);
 	$query->bindValue(':comment', $comment, PDO::PARAM_STR);
 	$query->execute();
+	$udanyWpis = true;
+	}
+	
+	catch(Exception $e)
+	{
+		echo '<span style="color:red;">Błąd serwera! Przepraszamy za niedogodności !</span>';
+	}
+	
 	
 	
 ?>
@@ -117,6 +129,12 @@
 									</div>
 						</div>
                     </form>
+					<?php if ($udanyWpis == true)
+					{
+						echo '<span style="color:#20c997;">Nowy wpis został dodany !</span>'; 
+					}
+					
+					?> 
             </div>	
 			</div>
 		
