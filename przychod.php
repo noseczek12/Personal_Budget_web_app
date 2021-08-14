@@ -195,7 +195,9 @@
 									<input type="submit" class="btnSubmit" value="Dodaj przychód" />
 									</div>
 									<div class="col-sm-12 form-group">
-									<input type="submit" class="btnAbort" value="Anuluj" />
+										<a href="menu_glowne.php">
+											<input type="button" class="btnAbort"  value="Anuluj" />
+										</a>
 									</div>
 						</div>
                     </form>
