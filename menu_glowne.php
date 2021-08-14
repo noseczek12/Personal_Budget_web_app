@@ -2,7 +2,7 @@
 
 	session_start();
 	
-	if(!isset($_SESSION['zalogowany'])&& ($_SESSION['zalogowany']==true)){
+	if(!isset($_SESSION['zalogowany']) && ($_SESSION['zalogowany']==true)){
 		
 		header('Location: logowanie.php');
 		exit();
@@ -67,9 +67,12 @@
 		<?php
 
 		echo "<p>Witaj ".$_SESSION['nick'].'! </p>';
+		echo "<p>Numer id: ".$_SESSION['id'].'! </p>';
 		echo "<p><b>E-mail</b>: ".$_SESSION['email'];
 	
 		?>	
+		
+		<a class="nav-link" aria-current="page" href="przychod.php">Dodaj przychód</a>
 		
 		</main>
 		<footer>
