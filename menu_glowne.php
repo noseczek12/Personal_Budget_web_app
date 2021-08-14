@@ -72,6 +72,8 @@
 	
 		?>	
 		
+		<a class="nav-link" aria-current="page" href="przychod.php">Dodaj przychód</a>
+		
 		</main>
 		<footer>
 			<div class="row">
