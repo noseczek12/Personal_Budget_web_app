@@ -1,42 +1,69 @@
 <?php
-	session_start();  
+	session_start();
 	
-	$category =  ( isset($_POST['incomeCategory']) == TRUE ) ? $_POST['incomeCategory'] :  '';
-	$amount =  ( isset($_POST['amount']) == TRUE ) ? $_POST['amount'] :  '';
-	$date =  ( isset($_POST['incomeDate']) == TRUE ) ? $_POST['incomeDate'] :  '';
-	$comment =  ( isset($_POST['incomeComment']) == TRUE ) ? $_POST['incomeComment'] :  '';
-	$date = strtotime($_POST['incomeDate']);
-	$convertedDate = date('Y-m-d', $date);
-	
-	/*echo $category.'</br>';
-	echo $amount.'</br>';
-	echo $convertedDate.'</br>';
-	echo $comment.'</br>';
-	echo $_SESSION['id'];*/
-	
-	$udanyWpis=false;
-	
-	try{
-		
-	require_once "database.php";
-	
-	$sql='INSERT INTO incomes VALUES(NULL,:userId,:category,:amount,:date,:comment)';
-	$query = $db->prepare($sql);
-	$query->bindValue(':userId', $_SESSION['id'], PDO::PARAM_STR);
-	$query->bindValue(':category', $category, PDO::PARAM_STR);
-	$query->bindValue(':amount', $amount, PDO::PARAM_INT);
-	$query->bindValue(':date', $convertedDate, PDO::PARAM_STR);
-	$query->bindValue(':comment', $comment, PDO::PARAM_STR);
-	$query->execute();
-	$udanyWpis = true;
-	}
-	
-	catch(Exception $e)
+	if(isset($_POST['amount']))
 	{
-		echo '<span style="color:red;">Błąd serwera! Przepraszamy za niedogodności !</span>';
+		//Udana walidacja ? Załóżmy, że tak!
+		$udanyWpis = true;
+		
+		//Sprawdzenie czy wprowadzona kwota jest większa bądź równa 0
+		$amount = $_POST['amount'];
+		if($amount == null )
+		{
+			$udanyWpis = false;
+			$_SESSION['e_amount'] = "Proszę podać wartość przychodu!";
+		}
+		
+		//Sprawdzenie czy data przychodu została wybrana (jeśli nie wybrana to w bazie będzie 1970-01-01)
+		$date = $_POST['incomeDate'];
+		//Tu jeszcze konwertujemy zmienną $date do odpowiedniego formatu
+		$date = strtotime($_POST['incomeDate']);
+		$convertedDate = date('Y-m-d', $date);
+		if($convertedDate == "1970-01-01")
+		{
+			$udanyWpis = false;
+			$_SESSION['e_date'] = "Proszę wybrać datę przychodu!";
+		}
+		
+		//Sprawdzenie czy kategoria przychodu została wybrana(jeśli nie wybrana to będzie value bezwyboru)
+		$category = $_POST['incomeCategory'];
+		if($category == "Wybierz...")
+		{
+			$udanyWpis = false;
+			$_SESSION['e_category'] = "Proszę wybrać kategorię przychodu!";
+		}
+		
+		//Sprawdzenie czy komentarz nie przekracza 70 znaków
+		$comment = $_POST['incomeComment'];
+		if(strlen($comment)>70)
+		{
+			$udanyWpis = false;
+			$_SESSION['e_comment'] = "Komentarz nie powinien przekraczać 70 znaków!";
+		}
+		
+		if($udanyWpis == true)//Hurra, możemy dodać nowy przychód do bazy!
+		{
+			//Dajemy polecenie insert
+			try{
+		
+				require_once "database.php";
+
+				$sql='INSERT INTO incomes VALUES(NULL,:userId,:category,:amount,:date,:comment)';
+				$query = $db->prepare($sql);
+				$query->bindValue(':userId', $_SESSION['id'], PDO::PARAM_STR);
+				$query->bindValue(':category', $category, PDO::PARAM_STR);
+				$query->bindValue(':amount', $amount, PDO::PARAM_INT);
+				$query->bindValue(':date', $convertedDate, PDO::PARAM_STR);
+				$query->bindValue(':comment', $comment, PDO::PARAM_STR);
+				$query->execute();
+				}
+
+			catch(Exception $e)
+			{
+				echo '<span style="color:red;">Błąd serwera! Przepraszamy za niedogodności !</span>';
+			}	
+		}
 	}
-	
-	
 	
 ?>
 
@@ -60,7 +87,14 @@
 	<!--[if lt IE 9]>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
 	<![endif]-->
-	
+	<style>
+		.error
+		{
+			color:red;
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
+	</style>
 </head>
 
 <body>
@@ -96,17 +130,31 @@
 			<div class="row justify-content-center">
 			<div class="col-xs-12 col-sm-7 col-lg-5 login-form-2">
                     <h3>Dodaj Przychód</h3>
-                    <form action="przychod.php" method="post">
+                    <form method="post">
                         <div class="form-group row">
 									<label for="inputAmount" class="col-sm-6  col-form-label">Kwota: </label>
 									<div class="col-sm-6">
 										<input type="number" class="form-control" id="inputAmount" name="amount" step="0.01">
 									</div>
+									<?php
+											if(isset($_SESSION['e_amount']))
+											{
+												echo '<div class="error">'.$_SESSION['e_amount'].'</div>';
+												unset ($_SESSION['e_amount']);
+											}
+									?>
 									
-									<label for="inputDate" class="col-sm-6  col-form-label">Data przychodu: </label>
+									<label for="inputDate" class="col-sm-6  col-form-label" >Data przychodu: </label>
 									<div class="col-sm-6">
 										<input type="date" class="form-control" id="inputDate" name="incomeDate">
 									</div>
+									<?php
+											if(isset($_SESSION['e_date']))
+											{
+												echo '<div class="error">'.$_SESSION['e_date'].'</div>';
+												unset ($_SESSION['e_date']);
+											}
+									?>
 									
 									<label for="categorySelect" class="col-sm-6 col-form-label">Kategoria:</label>
 									<select class="col-sm-6" id="categorySelect" name="incomeCategory">
@@ -115,11 +163,25 @@
 											<option value="odsetki bankowe">Odsetki bankowe</option>
 											<option value="inne">Inne Wydatki</option>
 									</select>
+									<?php
+											if(isset($_SESSION['e_category']))
+											{
+												echo '<div class="error">'.$_SESSION['e_category'].'</div>';
+												unset ($_SESSION['e_category']);
+											}
+									?>
 									
 									<label for="inputComment" class="col-sm-6 col-md-6  col-form-label">Komentarz (opcjonalnie): </label>
 									<div class="col-sm-6">
 										<input class="form-control " id="inputComment" type="text" name="incomeComment">
 									</div>
+									<?php
+											if(isset($_SESSION['e_comment']))
+											{
+												echo '<div class="error">'.$_SESSION['e_comment'].'</div>';
+												unset ($_SESSION['e_comment']);
+											}
+									?>
 								
 									<div class="col-sm-12 form-group">
 									<input type="submit" class="btnSubmit" value="Dodaj przychód" />
