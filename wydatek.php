@@ -137,7 +137,7 @@
 		
 			<div class="row justify-content-center">
 			<div class="col-xs-12 col-sm-7 col-lg-5 login-form-2">
-                    <h3>Dodaj Przychód</h3>
+                    <h3>Dodaj Wydatek</h3>
                     <form method="post">
                         <div class="form-group row">
 									<label for="inputAmount" class="col-sm-6  col-form-label">Kwota: </label>
@@ -154,7 +154,7 @@
 									
 									<label for="inputDate" class="col-sm-6  col-form-label" >Data przychodu: </label>
 									<div class="col-sm-6">
-										<input type="date" class="form-control" id="inputDate" name="incomeDate">
+										<input type="date" class="form-control" id="inputDate" name="expenseDate">
 									</div>
 									<?php
 											if(isset($_SESSION['e_date']))
@@ -164,11 +164,40 @@
 											}
 									?>
 									
-									<label for="categorySelect" class="col-sm-6 col-form-label">Kategoria:</label>
-									<select class="col-sm-6" id="categorySelect" name="incomeCategory">
+									<label for="paymentSelect" class="col-sm-6 col-form-label">Sposób płatności:</label>
+									<select class="col-sm-6" id="paymentSelect" name="paymentCategory">
 											<option selected>Wybierz...</option>
-											<option value="wynagrodzenie">Wynagrodzenie</option>
-											<option value="odsetki bankowe">Odsetki bankowe</option>
+											<option value="gotowka">Gotówka</option>
+											<option value="debet">Karta Debetowa</option>
+											<option value="kredyt">Karta Kredytowa</option>
+									</select>
+									<?php
+											if(isset($_SESSION['e_payment']))
+											{
+												echo '<div class="error">'.$_SESSION['e_payment'].'</div>';
+												unset ($_SESSION['e_payment']);
+											}
+									?>
+									
+									<label for="categorySelect" class="col-sm-6 col-form-label">Kategoria:</label>
+									<select class="col-sm-6" id="categorySelect" name="expenseCategory">
+											<option selected>Wybierz...</option>
+											<option value="jedzenie">Jedzenie</option>
+											<option value="mieszkanie">Mieszkanie</option>
+											<option value="transport">Transport</option>
+											<option value="telekomunikacja">Telekomunikacja</option>
+											<option value="zdrowie">Opieka Zdrowotna</option>
+											<option value="ubranie">Ubranie</option>
+											<option value="higiena">Higiena</option>
+											<option value="dzieci">Dzieci</option>
+											<option value="rozrywka">Rozrywka</option>
+											<option value="wycieczka">Wycieczka</option>
+											<option value="szkolenia">Szkolenia</option>
+											<option value="ksiazki">Książki</option>
+											<option value="oszczednosci">Oszczędności</option>
+											<option value="emerytura">Na złotą jesień, czyli emeryturę</option>
+											<option value="dlugi">Spłata długów</option>
+											<option value="darowizna">Darowizna</option>
 											<option value="inne">Inne Wydatki</option>
 									</select>
 									<?php
@@ -181,7 +210,7 @@
 									
 									<label for="inputComment" class="col-sm-6 col-md-6  col-form-label">Komentarz (opcjonalnie): </label>
 									<div class="col-sm-6">
-										<input class="form-control " id="inputComment" type="text" name="incomeComment">
+										<input class="form-control " id="inputComment" type="text" name="expenseComment">
 									</div>
 									<?php
 											if(isset($_SESSION['e_comment']))
@@ -192,7 +221,7 @@
 									?>
 								
 									<div class="col-sm-12 form-group">
-									<input type="submit" class="btnSubmit" value="Dodaj przychód" />
+									<input type="submit" class="btnSubmit" value="Dodaj wydatek" />
 									</div>
 									<div class="col-sm-12 form-group">
 										<a href="menu_glowne.php">
