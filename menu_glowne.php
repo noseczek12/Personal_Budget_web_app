@@ -71,8 +71,10 @@
 		echo "<p><b>E-mail</b>: ".$_SESSION['email'];
 	
 		?>	
-		
-		<a class="nav-link" aria-current="page" href="przychod.php">Dodaj przychód</a>
+		</br></br>
+		<a class="link-light" aria-current="page" href="przychod.php">Dodaj przychód</a>
+		</br>
+		<a class="link-light" aria-current="page" href="wydatek.php">Dodaj wydatek</a>
 		
 		</main>
 		<footer>
