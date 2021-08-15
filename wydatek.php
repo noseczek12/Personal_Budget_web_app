@@ -19,7 +19,7 @@
 		if($amount == null )
 		{
 			$udanyWpis = false;
-			$_SESSION['e_amount'] = "Proszę podać wartość przychodu!";
+			$_SESSION['e_amount'] = "Proszę podać wartość wydatku!";
 		}
 		
 		//Sprawdzenie czy data wydatku została wybrana (jeśli nie wybrana to w bazie będzie 1970-01-01)
@@ -30,7 +30,7 @@
 		if($convertedDate == "1970-01-01")
 		{
 			$udanyWpis = false;
-			$_SESSION['e_date'] = "Proszę wybrać datę przychodu!";
+			$_SESSION['e_date'] = "Proszę wybrać datę wydatku!";
 		}
 		
 		//Sprawdzenie, czy sposób płatności został wybrany
@@ -46,7 +46,7 @@
 		if($category == "Wybierz...")
 		{
 			$udanyWpis = false;
-			$_SESSION['e_category'] = "Proszę wybrać kategorię przychodu!";
+			$_SESSION['e_category'] = "Proszę wybrać kategorię wydatku!";
 		}
 		
 		//Sprawdzenie czy komentarz nie przekracza 70 znaków
