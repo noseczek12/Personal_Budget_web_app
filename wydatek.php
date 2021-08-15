@@ -22,10 +22,10 @@
 			$_SESSION['e_amount'] = "Proszę podać wartość przychodu!";
 		}
 		
-		//Sprawdzenie czy data przychodu została wybrana (jeśli nie wybrana to w bazie będzie 1970-01-01)
-		$date = $_POST['incomeDate'];
+		//Sprawdzenie czy data wydatku została wybrana (jeśli nie wybrana to w bazie będzie 1970-01-01)
+		$date = $_POST['expenseDate'];
 		//Tu jeszcze konwertujemy zmienną $date do odpowiedniego formatu
-		$date = strtotime($_POST['incomeDate']);
+		$date = strtotime($_POST['expenseDate']);
 		$convertedDate = date('Y-m-d', $date);
 		if($convertedDate == "1970-01-01")
 		{
@@ -33,8 +33,16 @@
 			$_SESSION['e_date'] = "Proszę wybrać datę przychodu!";
 		}
 		
-		//Sprawdzenie czy kategoria przychodu została wybrana(jeśli nie wybrana to będzie value bezwyboru)
-		$category = $_POST['incomeCategory'];
+		//Sprawdzenie, czy sposób płatności został wybrany
+		$payment = $_POST['paymentCategory'];
+		if($payment == "Wybierz...")
+		{
+			$udanyWpis = false;
+			$_SESSION['e_payment'] = "Proszę wybrać sposób płatności!";
+		}
+		
+		//Sprawdzenie czy kategoria wydatku została wybrana
+		$category = $_POST['expenseCategory'];
 		if($category == "Wybierz...")
 		{
 			$udanyWpis = false;
@@ -42,23 +50,24 @@
 		}
 		
 		//Sprawdzenie czy komentarz nie przekracza 70 znaków
-		$comment = $_POST['incomeComment'];
+		$comment = $_POST['expenseComment'];
 		if(strlen($comment)>70)
 		{
 			$udanyWpis = false;
 			$_SESSION['e_comment'] = "Komentarz nie powinien przekraczać 70 znaków!";
 		}
 		
-		if($udanyWpis == true)//Hurra, możemy dodać nowy przychód do bazy!
+		if($udanyWpis == true)//Hurra, możemy dodać nowy wydatek do bazy!
 		{
 			//Dajemy polecenie insert
 			try{
 		
 				require_once "database.php";
 
-				$sql='INSERT INTO incomes VALUES(NULL,:userId,:category,:amount,:date,:comment)';
+				$sql='INSERT INTO expenses VALUES(NULL,:userId,:payment,:category,:amount,:date,:comment)';
 				$query = $db->prepare($sql);
 				$query->bindValue(':userId', $_SESSION['id'], PDO::PARAM_STR);
+				$query->bindValue(':payment', $payment, PDO::PARAM_STR);
 				$query->bindValue(':category', $category, PDO::PARAM_STR);
 				$query->bindValue(':amount', $amount, PDO::PARAM_INT);
 				$query->bindValue(':date', $convertedDate, PDO::PARAM_STR);
@@ -152,7 +161,7 @@
 											}
 									?>
 									
-									<label for="inputDate" class="col-sm-6  col-form-label" >Data przychodu: </label>
+									<label for="inputDate" class="col-sm-6  col-form-label" >Data wydatku: </label>
 									<div class="col-sm-6">
 										<input type="date" class="form-control" id="inputDate" name="expenseDate">
 									</div>
