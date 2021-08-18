@@ -66,6 +66,55 @@
 						</div>
 				</div>	
 		</div>
+		<?php
+		session_start();
+		try{
+		
+				require_once "database.php";
+				
+				$resultSetIncomes= "SELECT id, category, amount, date_of_income, comment FROM incomes WHERE user_id = :userId ";
+				$queryIncomes = $db->prepare($resultSetIncomes);
+				$queryIncomes->bindValue(':userId', $_SESSION['id'], PDO::PARAM_STR);
+				$queryIncomes->execute();
+				
+				
+				
+				}
+
+			catch(Exception $e)
+			{
+				echo '<span style="color:red;">Błąd serwera! Przepraszamy za niedogodności !</span>';
+			}	
+		?>
+		<h3 class="bd-title text-center">Tabela przychodów </h3>
+		<table id="incomesTable" class="table table-sm" style="background-color: #204ac8; border: 1px solid white; color:white;">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>kategoria</th>
+					<th>Kwota</th>													
+					<th>Data przychodu</th>													
+					<th>Komentarz</th>													
+				</tr>
+			</thead>
+			<tbody>
+				<?php while( $developer = $queryIncomes -> fetch(PDO::FETCH_ASSOC) ) { ?>
+				   <tr>
+				   <td><?php echo $developer ['id']; ?></td>
+				   <td><?php echo $developer ['category']; ?></td>
+				   <td><?php echo $developer ['amount']; ?></td>  				   				   				  
+				   <td><?php echo $developer ['date_of_income']; ?></td>  				   				   				  
+				   <td><?php echo $developer ['comment']; ?></td>  				   				   				  
+				   </tr>
+				<?php } ?>
+				<tr>
+				<td class ="text-end" colspan = "4"> Razem: </td>
+				<td></td>
+				</tr>
+			</tbody>
+		</table>
+		
+		
 		
 		
 		

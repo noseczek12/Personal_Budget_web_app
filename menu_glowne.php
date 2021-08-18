@@ -75,6 +75,8 @@
 		<a class="link-light" aria-current="page" href="przychod.php">Dodaj przychód</a>
 		</br>
 		<a class="link-light" aria-current="page" href="wydatek.php">Dodaj wydatek</a>
+		</br>
+		<a class="link-light" aria-current="page" href="bilans.php">Pokaż bilans</a>
 		
 		</main>
 		<footer>
