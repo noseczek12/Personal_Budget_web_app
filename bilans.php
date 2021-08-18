@@ -77,7 +77,10 @@
 				$queryIncomes->bindValue(':userId', $_SESSION['id'], PDO::PARAM_STR);
 				$queryIncomes->execute();
 				
-				
+				$resultSetExpenses= "SELECT id, category, amount, date_of_expense, comment FROM expenses WHERE user_id = :userId ";
+				$queryExpenses = $db->prepare($resultSetExpenses);
+				$queryExpenses->bindValue(':userId', $_SESSION['id'], PDO::PARAM_STR);
+				$queryExpenses->execute();
 				
 				}
 
@@ -86,8 +89,9 @@
 				echo '<span style="color:red;">Błąd serwera! Przepraszamy za niedogodności !</span>';
 			}	
 		?>
+		<div>
 		<h3 class="bd-title text-center">Tabela przychodów </h3>
-		<table id="incomesTable" class="table table-sm" style="background-color: #204ac8; border: 1px solid white; color:white;">
+		<table id="incomesTable" class="table" style="background-color: #204ac8; border: 1px solid white; color:white;">
 			<thead>
 				<tr>
 					<th>#</th>
@@ -107,15 +111,46 @@
 				   <td><?php echo $developer ['comment']; ?></td>  				   				   				  
 				   </tr>
 				<?php } ?>
-				<tr>
-				<td class ="text-end" colspan = "4"> Razem: </td>
-				<td></td>
-				</tr>
 			</tbody>
+			<tfoot>
+				<tr>
+					<td class ="text-end" colspan = "4"> Razem: </td>
+					<td></td>
+				</tr>
+			</tfoot>
 		</table>
 		
 		
-		
+		<h3 class="bd-title text-center">Tabela wydatków </h3>
+		<table id="expensesTable" class="table" style="background-color: #204ac8; border: 1px solid white; color:white;">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>kategoria</th>
+					<th>Kwota</th>													
+					<th>Data wydatku</th>													
+					<th>Komentarz</th>													
+				</tr>
+			</thead>
+			<tbody>
+				<?php while( $developer = $queryExpenses -> fetch(PDO::FETCH_ASSOC) ) { ?>
+				   <tr>
+				   <td><?php echo $developer ['id']; ?></td>
+				   <td><?php echo $developer ['category']; ?></td>
+				   <td><?php echo $developer ['amount']; ?></td>  				   				   				  
+				   <td><?php echo $developer ['date_of_expense']; ?></td>  				   				   				  
+				   <td><?php echo $developer ['comment']; ?></td>  				   				   				  
+				   </tr>
+				<?php } ?>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td class ="text-end" colspan = "4"> Razem: </td>
+					<td></td>
+				</tr>
+			</tfoot>
+		</table>
+		</div>
 		
 		
 		</main>
