@@ -82,6 +82,11 @@
 				$queryExpenses->bindValue(':userId', $_SESSION['id'], PDO::PARAM_STR);
 				$queryExpenses->execute();
 				
+				$resultSumIncomes= "SELECT SUM(amount) AS isum FROM incomes WHERE user_id = :userId ";
+				$queryIncomesSum = $db->prepare($resultSumIncomes);
+				$queryIncomesSum->bindValue(':userId', $_SESSION['id'], PDO::PARAM_STR);
+				$queryIncomesSum->execute();
+				
 				}
 
 			catch(Exception $e)
@@ -94,11 +99,11 @@
 		<table id="incomesTable" class="table" style="background-color: #204ac8; border: 1px solid white; color:white;">
 			<thead>
 				<tr>
-					<th>#</th>
-					<th>kategoria</th>
-					<th>Kwota</th>													
-					<th>Data przychodu</th>													
-					<th>Komentarz</th>													
+					<th style ="width: 5%">#</th>
+					<th style ="width: 15%">kategoria</th>
+					<th style ="width: 20%">Kwota</th>													
+					<th style ="width: 20%">Data przychodu</th>													
+					<th style ="width: 20%">Komentarz</th>													
 				</tr>
 			</thead>
 			<tbody>
@@ -115,7 +120,7 @@
 			<tfoot>
 				<tr>
 					<td class ="text-end" colspan = "4"> Razem: </td>
-					<td></td>
+					<td><?php while( $developer = $queryIncomesSum -> fetch(PDO::FETCH_ASSOC) ) { echo $developer['isum']; } ?></td>
 				</tr>
 			</tfoot>
 		</table>
@@ -125,11 +130,11 @@
 		<table id="expensesTable" class="table" style="background-color: #204ac8; border: 1px solid white; color:white;">
 			<thead>
 				<tr>
-					<th>#</th>
-					<th>kategoria</th>
-					<th>Kwota</th>													
-					<th>Data wydatku</th>													
-					<th>Komentarz</th>													
+					<th style ="width: 5%">#</th>
+					<th style ="width: 15%">kategoria</th>
+					<th style ="width: 20%">Kwota</th>													
+					<th style ="width: 20%">Data wydatku</th>													
+					<th style ="width: 20%">Komentarz</th>													
 				</tr>
 			</thead>
 			<tbody>
