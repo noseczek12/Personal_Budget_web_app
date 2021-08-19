@@ -87,6 +87,10 @@
 				$queryIncomesSum->bindValue(':userId', $_SESSION['id'], PDO::PARAM_STR);
 				$queryIncomesSum->execute();
 				
+				$resultSumExpenses= "SELECT SUM(amount) AS esum FROM expenses WHERE user_id = :userId ";
+				$queryExpensesSum = $db->prepare($resultSumExpenses);
+				$queryExpensesSum->bindValue(':userId', $_SESSION['id'], PDO::PARAM_STR);
+				$queryExpensesSum->execute();
 				}
 
 			catch(Exception $e)
@@ -119,8 +123,8 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<td class ="text-end" colspan = "4"> Razem: </td>
-					<td><?php while( $developer = $queryIncomesSum -> fetch(PDO::FETCH_ASSOC) ) { echo $developer['isum']; } ?></td>
+					<td class ="text-end" colspan = "4"><b> Razem: </b></td>
+					<td><?php while( $developer = $queryIncomesSum -> fetch(PDO::FETCH_ASSOC) ) { echo $developer['isum']; } ?> zł</td>
 				</tr>
 			</tfoot>
 		</table>
@@ -150,8 +154,8 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<td class ="text-end" colspan = "4"> Razem: </td>
-					<td></td>
+					<td class ="text-end" colspan = "4"><b> Razem: </b></td>
+					<td><?php while( $developer = $queryExpensesSum -> fetch(PDO::FETCH_ASSOC) ) { echo $developer['esum']; } ?> zł</td>
 				</tr>
 			</tfoot>
 		</table>
