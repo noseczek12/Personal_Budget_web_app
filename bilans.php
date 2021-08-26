@@ -67,6 +67,15 @@
 				</div>	
 		</div>
 		<?php
+		
+	function calcSum($sqlArray){
+			$sum = 0.0;
+			foreach ($sqlArray as $values){
+				$sum+= floatval($values['amount']);
+			}
+			return number_format($sum,2);
+		}
+		
 		session_start();
 		try{
 		
@@ -82,15 +91,17 @@
 				$queryExpenses->bindValue(':userId', $_SESSION['id'], PDO::PARAM_STR);
 				$queryExpenses->execute();
 				
-				$resultSumIncomes= "SELECT SUM(amount) AS isum FROM incomes WHERE user_id = :userId ";
+				$resultSumIncomes= "SELECT amount  FROM incomes WHERE user_id = :userId ";
 				$queryIncomesSum = $db->prepare($resultSumIncomes);
 				$queryIncomesSum->bindValue(':userId', $_SESSION['id'], PDO::PARAM_STR);
 				$queryIncomesSum->execute();
+				$resultIncomes = $queryIncomesSum->fetchAll();
 				
-				$resultSumExpenses= "SELECT SUM(amount) AS esum FROM expenses WHERE user_id = :userId ";
+				$resultSumExpenses= "SELECT amount FROM expenses WHERE user_id = :userId ";
 				$queryExpensesSum = $db->prepare($resultSumExpenses);
 				$queryExpensesSum->bindValue(':userId', $_SESSION['id'], PDO::PARAM_STR);
 				$queryExpensesSum->execute();
+				$resultExpenses = $queryExpensesSum->fetchAll();
 				}
 
 			catch(Exception $e)
@@ -124,7 +135,7 @@
 			<tfoot>
 				<tr>
 					<td class ="text-end" colspan = "4"><b> Razem: </b></td>
-					<td><?php while( $developer = $queryIncomesSum -> fetch(PDO::FETCH_ASSOC) ) { echo $developer['isum']; } ?> zł</td>
+					<td><?php echo calcSum($resultIncomes); ?> zł</td>
 				</tr>
 			</tfoot>
 		</table>
@@ -155,7 +166,7 @@
 			<tfoot>
 				<tr>
 					<td class ="text-end" colspan = "4"><b> Razem: </b></td>
-					<td><?php while( $developer = $queryExpensesSum -> fetch(PDO::FETCH_ASSOC) ) { echo $developer['esum']; } ?> zł</td>
+					<td><?php echo calcSum($resultExpenses);?> zł</td>
 				</tr>
 			</tfoot>
 		</table>
