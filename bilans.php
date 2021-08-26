@@ -73,7 +73,7 @@
 			foreach ($sqlArray as $values){
 				$sum+= floatval($values['amount']);
 			}
-			return number_format($sum,2);
+			return $sum;
 		}
 		
 		session_start();
@@ -135,7 +135,7 @@
 			<tfoot>
 				<tr>
 					<td class ="text-end" colspan = "4"><b> Razem: </b></td>
-					<td><?php echo calcSum($resultIncomes); ?> zł</td>
+					<td><?php echo number_format(calcSum($resultIncomes),2); ?> zł</td>
 				</tr>
 			</tfoot>
 		</table>
@@ -166,12 +166,18 @@
 			<tfoot>
 				<tr>
 					<td class ="text-end" colspan = "4"><b> Razem: </b></td>
-					<td><?php echo calcSum($resultExpenses);?> zł</td>
+					<td><?php echo number_format(calcSum($resultExpenses),2);?> zł</td>
 				</tr>
 			</tfoot>
 		</table>
 		</div>
-		
+		<?php 
+					$e = calcSum($resultExpenses);
+					$i = calcSum($resultIncomes);
+					$balance = floatval( $i - $e );
+					echo '<div style="text-align: right;">Twój balans wynosi: '.number_format($balance,2).'zł.</div>';	
+					
+		?>
 		
 		</main>
 		<footer>
