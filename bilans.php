@@ -17,6 +17,11 @@
 				$piechartQueryIncomes->bindValue(':userId', $_SESSION['id'], PDO::PARAM_STR);
 				$piechartQueryIncomes->execute();
 				
+				$pieChartExpenses= "SELECT category, SUM(amount) FROM expenses WHERE user_id = :userId  GROUP BY category ORDER BY SUM(amount)  DESC ";
+				$piechartQueryExpenses = $db->prepare($pieChartExpenses);
+				$piechartQueryExpenses->bindValue(':userId', $_SESSION['id'], PDO::PARAM_STR);
+				$piechartQueryExpenses->execute();
+				
 				$resultSetIncomes= "SELECT category, SUM(amount) FROM incomes WHERE user_id = :userId  GROUP BY category ORDER BY SUM(amount)  DESC ";
 				$queryIncomes = $db->prepare($resultSetIncomes);
 				$queryIncomes->bindValue(':userId', $_SESSION['id'], PDO::PARAM_STR);
@@ -70,6 +75,7 @@
 	<script type="text/javascript">
 		google.charts.load('current', {'packages' : ['corechart']});
 		google.charts.setOnLoadCallback(drawIncomesChart);
+		google.charts.setOnLoadCallback(drawExpensesChart);
 		function drawIncomesChart()
 		{
 				var data = google.visualization.arrayToDataTable([
@@ -82,13 +88,30 @@
 						?>
 				]);
 				var options = {  
-                      title: 'Kwoty poszczególnych kategorii przychodu',  
+                      title: 'Kwoty poszczególnych kategorii przychodów',  
                       
                      };  
                 var chart = new google.visualization.PieChart(document.getElementById('piechartIncomes'));  
                 chart.draw(data, options);
 		}
-	
+		function drawExpensesChart()
+		{
+				var data = google.visualization.arrayToDataTable([
+						['category', 'amount'],
+						<?php
+								 while( $developer = $piechartQueryExpenses -> fetch(PDO::FETCH_ASSOC))
+								 {
+											echo "['".$developer["category"]."', ".$developer["SUM(amount)"]."],";
+								 }   				   				  		   				   				  
+						?>
+				]);
+				var options = {  
+                      title: 'Kwoty poszczególnych kategorii wydatków',  
+                      
+                     };  
+                var chart = new google.visualization.PieChart(document.getElementById('piechartExpenses'));  
+                chart.draw(data, options);
+		}
 	</script>
 	
 </head>
@@ -140,7 +163,6 @@
 		</div>
 		
 		<div class="d-flex">
-		
 		<table id="incomesTable" class="table p-2 caption-top" style="background-color: #204ac8; border: 1px solid white; color:white;">
 			<caption style="color: white;"> 
 				<h3 class="bd-title text-center">Tabela przychodów </h3>
@@ -167,9 +189,6 @@
 				</tr>
 			</tfoot>
 		</table>
-		
-		
-		
 		<table id="expensesTable" class="table p-2 caption-top" style="background-color: #204ac8; border: 1px solid white; color:white;">
 		<caption style="color: white;"> 
 				<h3 class="bd-title text-center">Tabela wydatków </h3>
@@ -204,8 +223,8 @@
 		?>
 		</br></br>
 		<div class = "d-flex">
-		<div id="piechartIncomes" class="p-2" style ="width: 50%;"></div>
-		
+				<div id="piechartIncomes" class="p-2" style ="width: 50%; height: 500px;"></div>
+				<div id="piechartExpenses" class="p-2" style ="width: 50%; height: 500px;"></div>
 		</div>
 		</main>
 		<footer>
