@@ -1,3 +1,50 @@
+<?php
+		
+	function calcSum($sqlArray){
+			$sum = 0.0;
+			foreach ($sqlArray as $values){
+				$sum+= floatval($values['amount']);
+			}
+			return $sum;
+		}
+		
+		session_start();
+		try{
+		
+				require_once "database.php";
+				$pieChartIncomes= "SELECT category, SUM(amount) FROM incomes WHERE user_id = :userId  GROUP BY category ORDER BY SUM(amount)  DESC ";
+				$piechartQueryIncomes = $db->prepare($pieChartIncomes);
+				$piechartQueryIncomes->bindValue(':userId', $_SESSION['id'], PDO::PARAM_STR);
+				$piechartQueryIncomes->execute();
+				
+				$resultSetIncomes= "SELECT category, SUM(amount) FROM incomes WHERE user_id = :userId  GROUP BY category ORDER BY SUM(amount)  DESC ";
+				$queryIncomes = $db->prepare($resultSetIncomes);
+				$queryIncomes->bindValue(':userId', $_SESSION['id'], PDO::PARAM_STR);
+				$queryIncomes->execute();
+				
+				$resultSetExpenses= "SELECT category, SUM(amount) FROM expenses WHERE user_id = :userId  GROUP BY category ORDER BY SUM(amount)  DESC ";
+				$queryExpenses = $db->prepare($resultSetExpenses);
+				$queryExpenses->bindValue(':userId', $_SESSION['id'], PDO::PARAM_STR);
+				$queryExpenses->execute();
+				
+				$resultSumIncomes= "SELECT amount  FROM incomes WHERE user_id = :userId ";
+				$queryIncomesSum = $db->prepare($resultSumIncomes);
+				$queryIncomesSum->bindValue(':userId', $_SESSION['id'], PDO::PARAM_STR);
+				$queryIncomesSum->execute();
+				$resultIncomes = $queryIncomesSum->fetchAll();
+				
+				$resultSumExpenses= "SELECT amount FROM expenses WHERE user_id = :userId ";
+				$queryExpensesSum = $db->prepare($resultSumExpenses);
+				$queryExpensesSum->bindValue(':userId', $_SESSION['id'], PDO::PARAM_STR);
+				$queryExpensesSum->execute();
+				$resultExpenses = $queryExpensesSum->fetchAll();
+				}
+
+			catch(Exception $e)
+			{
+				echo '<span style="color:red;">Błąd serwera! Przepraszamy za niedogodności !</span>';
+			}	
+		?>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -18,6 +65,31 @@
 	<!--[if lt IE 9]>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
 	<![endif]-->
+	
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script type="text/javascript">
+		google.charts.load('current', {'packages' : ['corechart']});
+		google.charts.setOnLoadCallback(drawIncomesChart);
+		function drawIncomesChart()
+		{
+				var data = google.visualization.arrayToDataTable([
+						['category', 'amount'],
+						<?php
+								 while( $developer = $piechartQueryIncomes -> fetch(PDO::FETCH_ASSOC))
+								 {
+											echo "['".$developer["category"]."', ".$developer["SUM(amount)"]."],";
+								 }   				   				  		   				   				  
+						?>
+				]);
+				var options = {  
+                      title: 'Kwoty poszczególnych kategorii przychodu',  
+                      
+                     };  
+                var chart = new google.visualization.PieChart(document.getElementById('piechartIncomes'));  
+                chart.draw(data, options);
+		}
+	
+	</script>
 	
 </head>
 
@@ -66,49 +138,6 @@
 						</div>
 				</div>	
 		</div>
-		<?php
-		
-	function calcSum($sqlArray){
-			$sum = 0.0;
-			foreach ($sqlArray as $values){
-				$sum+= floatval($values['amount']);
-			}
-			return $sum;
-		}
-		
-		session_start();
-		try{
-		
-				require_once "database.php";
-				
-				$resultSetIncomes= "SELECT category, SUM(amount) FROM incomes WHERE user_id = :userId  GROUP BY category ORDER BY SUM(amount)  DESC ";
-				$queryIncomes = $db->prepare($resultSetIncomes);
-				$queryIncomes->bindValue(':userId', $_SESSION['id'], PDO::PARAM_STR);
-				$queryIncomes->execute();
-				
-				$resultSetExpenses= "SELECT category, SUM(amount) FROM expenses WHERE user_id = :userId  GROUP BY category ORDER BY SUM(amount)  DESC ";
-				$queryExpenses = $db->prepare($resultSetExpenses);
-				$queryExpenses->bindValue(':userId', $_SESSION['id'], PDO::PARAM_STR);
-				$queryExpenses->execute();
-				
-				$resultSumIncomes= "SELECT amount  FROM incomes WHERE user_id = :userId ";
-				$queryIncomesSum = $db->prepare($resultSumIncomes);
-				$queryIncomesSum->bindValue(':userId', $_SESSION['id'], PDO::PARAM_STR);
-				$queryIncomesSum->execute();
-				$resultIncomes = $queryIncomesSum->fetchAll();
-				
-				$resultSumExpenses= "SELECT amount FROM expenses WHERE user_id = :userId ";
-				$queryExpensesSum = $db->prepare($resultSumExpenses);
-				$queryExpensesSum->bindValue(':userId', $_SESSION['id'], PDO::PARAM_STR);
-				$queryExpensesSum->execute();
-				$resultExpenses = $queryExpensesSum->fetchAll();
-				}
-
-			catch(Exception $e)
-			{
-				echo '<span style="color:red;">Błąd serwera! Przepraszamy za niedogodności !</span>';
-			}	
-		?>
 		
 		<div class="d-flex">
 		
@@ -123,7 +152,8 @@
 				</tr>
 			</thead>
 			<tbody>
-				<?php while( $developer = $queryIncomes -> fetch(PDO::FETCH_ASSOC) ) { ?>
+				<?php 
+				while( $developer = $queryIncomes -> fetch(PDO::FETCH_ASSOC) ) { ?>
 				   <tr>
 						   <td><?php echo $developer ['category']; ?></td>
 						   <td><?php echo $developer ['SUM(amount)']; ?></td>  				   				   				  		   				   				  
@@ -170,10 +200,13 @@
 					$e = calcSum($resultExpenses);
 					$i = calcSum($resultIncomes);
 					$balance = floatval( $i - $e );
-					echo '<div style="text-align: right;">Twój balans wynosi: '.number_format($balance,2).'zł.</div>';	
-					
+					echo '<div style="text-align: right;">Twój balans wynosi: '.number_format($balance,2).'zł.</div>';		
 		?>
+		</br></br>
+		<div class = "d-flex">
+		<div id="piechartIncomes" class="p-2" style ="width: 50%;"></div>
 		
+		</div>
 		</main>
 		<footer>
 			<div class="row">
