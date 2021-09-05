@@ -81,12 +81,12 @@
 		
 				require_once "database.php";
 				
-				$resultSetIncomes= "SELECT id, category, amount FROM incomes WHERE user_id = :userId ";
+				$resultSetIncomes= "SELECT category, SUM(amount) FROM incomes WHERE user_id = :userId  GROUP BY category ORDER BY SUM(amount)  DESC ";
 				$queryIncomes = $db->prepare($resultSetIncomes);
 				$queryIncomes->bindValue(':userId', $_SESSION['id'], PDO::PARAM_STR);
 				$queryIncomes->execute();
 				
-				$resultSetExpenses= "SELECT id, category, amount FROM expenses WHERE user_id = :userId ";
+				$resultSetExpenses= "SELECT category, SUM(amount) FROM expenses WHERE user_id = :userId  GROUP BY category ORDER BY SUM(amount)  DESC ";
 				$queryExpenses = $db->prepare($resultSetExpenses);
 				$queryExpenses->bindValue(':userId', $_SESSION['id'], PDO::PARAM_STR);
 				$queryExpenses->execute();
@@ -126,7 +126,7 @@
 				<?php while( $developer = $queryIncomes -> fetch(PDO::FETCH_ASSOC) ) { ?>
 				   <tr>
 						   <td><?php echo $developer ['category']; ?></td>
-						   <td><?php echo $developer ['amount']; ?></td>  				   				   				  		   				   				  
+						   <td><?php echo $developer ['SUM(amount)']; ?></td>  				   				   				  		   				   				  
 				   </tr>
 				<?php } ?>
 			</tbody>
@@ -154,7 +154,7 @@
 				<?php while( $developer = $queryExpenses -> fetch(PDO::FETCH_ASSOC) ) { ?>
 				   <tr>
 				   <td><?php echo $developer ['category']; ?></td>
-				   <td><?php echo $developer ['amount']; ?></td>  				   				   				  				   				   				  
+				   <td><?php echo $developer ['SUM(amount)']; ?></td>  				   				   				  				   				   				  
 				   </tr>
 				<?php } ?>
 			</tbody>
