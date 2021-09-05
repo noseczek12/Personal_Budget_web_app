@@ -81,12 +81,12 @@
 		
 				require_once "database.php";
 				
-				$resultSetIncomes= "SELECT id, category, amount, date_of_income, comment FROM incomes WHERE user_id = :userId ";
+				$resultSetIncomes= "SELECT id, category, amount FROM incomes WHERE user_id = :userId ";
 				$queryIncomes = $db->prepare($resultSetIncomes);
 				$queryIncomes->bindValue(':userId', $_SESSION['id'], PDO::PARAM_STR);
 				$queryIncomes->execute();
 				
-				$resultSetExpenses= "SELECT id, category, amount, date_of_expense, comment FROM expenses WHERE user_id = :userId ";
+				$resultSetExpenses= "SELECT id, category, amount FROM expenses WHERE user_id = :userId ";
 				$queryExpenses = $db->prepare($resultSetExpenses);
 				$queryExpenses->bindValue(':userId', $_SESSION['id'], PDO::PARAM_STR);
 				$queryExpenses->execute();
@@ -109,63 +109,58 @@
 				echo '<span style="color:red;">Błąd serwera! Przepraszamy za niedogodności !</span>';
 			}	
 		?>
-		<div>
-		<h3 class="bd-title text-center">Tabela przychodów </h3>
-		<table id="incomesTable" class="table" style="background-color: #204ac8; border: 1px solid white; color:white;">
+		
+		<div class="d-flex">
+		
+		<table id="incomesTable" class="table p-2 caption-top" style="background-color: #204ac8; border: 1px solid white; color:white;">
+			<caption style="color: white;"> 
+				<h3 class="bd-title text-center">Tabela przychodów </h3>
+			</caption>
 			<thead>
 				<tr>
-					<th style ="width: 5%">#</th>
-					<th style ="width: 15%">kategoria</th>
-					<th style ="width: 20%">Kwota</th>													
-					<th style ="width: 20%">Data przychodu</th>													
-					<th style ="width: 20%">Komentarz</th>													
+					<th style ="width: 50%">kategoria</th>
+					<th style ="width: 50%">Kwota</th>																				
 				</tr>
 			</thead>
 			<tbody>
 				<?php while( $developer = $queryIncomes -> fetch(PDO::FETCH_ASSOC) ) { ?>
 				   <tr>
-				   <td><?php echo $developer ['id']; ?></td>
-				   <td><?php echo $developer ['category']; ?></td>
-				   <td><?php echo $developer ['amount']; ?></td>  				   				   				  
-				   <td><?php echo $developer ['date_of_income']; ?></td>  				   				   				  
-				   <td><?php echo $developer ['comment']; ?></td>  				   				   				  
+						   <td><?php echo $developer ['category']; ?></td>
+						   <td><?php echo $developer ['amount']; ?></td>  				   				   				  		   				   				  
 				   </tr>
 				<?php } ?>
 			</tbody>
 			<tfoot>
 				<tr>
-					<td class ="text-end" colspan = "4"><b> Razem: </b></td>
+					<td class ="text-end" ><b> Razem: </b></td>
 					<td><?php echo number_format(calcSum($resultIncomes),2); ?> zł</td>
 				</tr>
 			</tfoot>
 		</table>
 		
 		
-		<h3 class="bd-title text-center">Tabela wydatków </h3>
-		<table id="expensesTable" class="table" style="background-color: #204ac8; border: 1px solid white; color:white;">
+		
+		<table id="expensesTable" class="table p-2 caption-top" style="background-color: #204ac8; border: 1px solid white; color:white;">
+		<caption style="color: white;"> 
+				<h3 class="bd-title text-center">Tabela wydatków </h3>
+			</caption>
 			<thead>
 				<tr>
-					<th style ="width: 5%">#</th>
-					<th style ="width: 15%">kategoria</th>
-					<th style ="width: 20%">Kwota</th>													
-					<th style ="width: 20%">Data wydatku</th>													
-					<th style ="width: 20%">Komentarz</th>													
+					<th style ="width: 50%">kategoria</th>
+					<th style ="width: 50%">Kwota</th>																								
 				</tr>
 			</thead>
 			<tbody>
 				<?php while( $developer = $queryExpenses -> fetch(PDO::FETCH_ASSOC) ) { ?>
 				   <tr>
-				   <td><?php echo $developer ['id']; ?></td>
 				   <td><?php echo $developer ['category']; ?></td>
-				   <td><?php echo $developer ['amount']; ?></td>  				   				   				  
-				   <td><?php echo $developer ['date_of_expense']; ?></td>  				   				   				  
-				   <td><?php echo $developer ['comment']; ?></td>  				   				   				  
+				   <td><?php echo $developer ['amount']; ?></td>  				   				   				  				   				   				  
 				   </tr>
 				<?php } ?>
 			</tbody>
 			<tfoot>
 				<tr>
-					<td class ="text-end" colspan = "4"><b> Razem: </b></td>
+					<td class ="text-end"><b> Razem: </b></td>
 					<td><?php echo number_format(calcSum($resultExpenses),2);?> zł</td>
 				</tr>
 			</tfoot>
