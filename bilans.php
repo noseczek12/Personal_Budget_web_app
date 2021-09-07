@@ -76,6 +76,7 @@
 		google.charts.load('current', {'packages' : ['corechart']});
 		google.charts.setOnLoadCallback(drawIncomesChart);
 		google.charts.setOnLoadCallback(drawExpensesChart);
+	
 		function drawIncomesChart()
 		{
 				var data = google.visualization.arrayToDataTable([
@@ -88,12 +89,18 @@
 						?>
 				]);
 				var options = {  
-                      title: 'Kwoty poszczególnych kategorii przychodów',  
-                      
+                      title: 'Kwoty poszczególnych kategorii przychodów',
+					  width: 'auto',
+					  height: 'auto',
                      };  
                 var chart = new google.visualization.PieChart(document.getElementById('piechartIncomes'));  
                 chart.draw(data, options);
+				
+				$(window).smartresize(function () {
+						chart.draw(data, options);
+				});
 		}
+
 		function drawExpensesChart()
 		{
 				var data = google.visualization.arrayToDataTable([
@@ -107,10 +114,15 @@
 				]);
 				var options = {  
                       title: 'Kwoty poszczególnych kategorii wydatków',  
-                      
+                       width: 'auto',
+					  height: 'auto',
                      };  
                 var chart = new google.visualization.PieChart(document.getElementById('piechartExpenses'));  
                 chart.draw(data, options);
+				
+				$(window).smartresize(function () {
+						chart.draw(data, options);
+				});
 		}
 	</script>
 	
@@ -222,7 +234,7 @@
 					echo '<div style="text-align: right;">Twój balans wynosi: '.number_format($balance,2).'zł.</div>';		
 		?>
 		</br></br>
-		<div class = "d-flex">
+		<div class = "d-flex flex-fill" >
 				<div id="piechartIncomes" class="p-2" style ="width: 50%; height: 500px;"></div>
 				<div id="piechartExpenses" class="p-2" style ="width: 50%; height: 500px;"></div>
 		</div>
