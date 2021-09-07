@@ -9,6 +9,13 @@
 		}
 		
 		session_start();
+		//Sprawdzenie czy osoba wchodząca na stronę jest zalogowana
+			if(!isset($_SESSION['zalogowany']) && ($_SESSION['zalogowany']!=true)){
+				
+				header('Location: logowanie.php');
+				exit();
+			}
+		
 		try{
 		
 				require_once "database.php";
