@@ -142,13 +142,13 @@
 					<div class="collapse navbar-collapse" id="collapsibleNavbar">	
 						<ul class="navbar-nav me-auto">
 							<li class="nav-item">
-									<a class="nav-link" aria-current="page" href="#">Menu Główne</a>
+									<a class="nav-link" aria-current="page" href="menu_glowne.php">Menu Główne</a>
 							</li>
 							<li class="nav-item">
 									<a class="nav-link" aria-current="page" href="#">Ustawienia</a>
 							</li>
 							<li class="nav-item">
-									<a class="nav-link" aria-current="page" href="#">Wyloguj</a>
+									<a class="nav-link" aria-current="page" href="wyloguj.php">Wyloguj</a>
 							</li>
 						</ul>
 					</div>
